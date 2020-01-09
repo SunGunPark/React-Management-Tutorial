@@ -104,9 +104,7 @@ const styles = theme => ({
         fontSize: '1.0rem'
     }
 });
-
 class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -115,30 +113,29 @@ class App extends React.Component {
             searchKeyword: ''
         }
     }
-
     stateRefresh = () => {
-        this.setState({customers: '', completed: 0, searchKeyword: ''});
+        this.setState({
+            customers: '',
+            completed: 0,
+            searchKeyword: ''
+        });
         this
-            .callApi()
-            .then(res => this.setState({customers: res}))
-            .catch(err => console.log(err));
+        .callApi()
+        .then(res => this.setState({customers: res}))
+        .catch(err => console.log(err));
     }
     componentDidMount() {
         this.timer = setInterval(this.progress, 20);
-
         this
             .callApi()
             .then(res => this.setState({customers: res}))
             .catch(err => console.log(err));
     }
-
     callApi = async () => {
-
         const response = await axios.get('/api/customers');
         this.setState({customers: response.data});
-        //const body = await response.json();
+        const body = await response.json();
     };
-
     progress = () => {
         const {completed} = this.state;
         this.setState({
@@ -147,7 +144,6 @@ class App extends React.Component {
                 : completed + 1
         });
     }
-
     handleValueChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -155,7 +151,6 @@ class App extends React.Component {
     }
 
     render() {
-
         const filteredComponents = (data) => {
             data = data.filter((c) => {
                 return c.name.indexOf(this.state.searchKeyword) > -1;
@@ -172,7 +167,6 @@ class App extends React.Component {
                     job={c.job} />
             });
         }
-        console.log(this.state)
         const { classes } = this.props;
         const cellList = [
             "번호",
@@ -207,7 +201,7 @@ class App extends React.Component {
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
-                                
+                                inputProps={{ 'aria-label': 'search' }}
                                 name="searchKeyword"
                                 value={this.state.searchKeyword}
                                 onChange={this.handleValueChange}
@@ -222,7 +216,7 @@ class App extends React.Component {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                {
+                            {
                                     cellList.map(c => {
                                         return <TableCell className={classes.TableHead} key={c.toString()}>{c}</TableCell>
                                     })
@@ -232,25 +226,7 @@ class App extends React.Component {
                         <TableBody>
                             {
                                 this.state.customers
-                                    ? filteredComponents(this.state.customers)                         
-                                        /*
-                                        this
-                                        .state
-                                        .customers
-                                        .map((c) => {
-                                            return (
-                                                <Customer
-                                                    stateRefresh={this.stateRefresh}
-                                                    key={c.id}
-                                                    id={c.id}
-                                                    image={c.image}
-                                                    name={c.NAME}
-                                                    birthday={c.birthday}
-                                                    gender={c.gender}
-                                                    job={c.job}/>
-                                            )
-                                        })
-                                        */
+                                    ? filteredComponents(this.state.customers)
                                     : <TableRow>
                                             <TableCell colSpan="6" align="center">
                                                 <CircularProgress
@@ -267,5 +243,4 @@ class App extends React.Component {
         );
     };
 }
-
 export default withStyles(styles)(App);
