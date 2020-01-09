@@ -7,7 +7,7 @@ var cookie;
 
 // proxy 로 request 시 이벤트
 function relayRequestHeaders(proxyReq, req) {
-    console.debug('💥💥💥 request 💥💥💥');
+    console.debug('--request--');
     Object.keys(req.headers).forEach(function (key) {
       console.debug(`${key} : ${req.headers[key]}`);
     });
@@ -18,7 +18,7 @@ function relayRequestHeaders(proxyReq, req) {
 
 // proxy 로 Response 시 이벤트
 function relayResponseHeaders(proxyRes, req, res) {
-    console.debug('💥💥💥 response 💥💥💥');
+    console.debug('--response--');
     Object.keys(proxyRes.headers).forEach(function (key) {
       console.debug(`${key} : ${proxyRes.headers[key]}`);
     });

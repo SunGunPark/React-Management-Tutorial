@@ -28,7 +28,7 @@ class CustomerAdd extends React.Component {
     }
 
     handleFormSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         this
             .addCustomer()
             .then((response) => {
@@ -84,7 +84,6 @@ class CustomerAdd extends React.Component {
         this.setState({
             open: true
         });
-        console.log(this.state)
     }
 
     handleClose = () => {
@@ -162,7 +161,7 @@ class CustomerAdd extends React.Component {
                     </DialogActions>
                 </Dialog>
             </div>
-            /*
+/*
             <form onSubmit={this.handleFormSubmit}>
                 <h1>고객 추가</h1>
                 프로필 이미지: <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/><br/>

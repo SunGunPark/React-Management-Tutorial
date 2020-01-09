@@ -1,7 +1,6 @@
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
-import { Tab } from '@material-ui/core';
 import CustomerDelete from './CustomerDelete';
 
 class Customer extends React.Component {
